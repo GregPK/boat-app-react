@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import Boat from './Boat'
+
 const App = () => {
+  let boats = [
+    { name: 'B1', description: 'B1d' },
+    { name: 'B2', description: 'B2d' }
+  ]
+
+  let boatComps = boats.map((boat: any) => <Boat boat={boat} />)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {boatComps}
     </div>
   );
 }
