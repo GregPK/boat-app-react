@@ -3,10 +3,11 @@ import React from 'react';
 class Boat extends React.Component<any> {
   render() {
     return (
-      <div className="App" >
-        <p>Name: {this.props.boat.name}</p>
-        <p>{this.props.boat.description}</p>
-      </div>
+      <tr className="App" >
+        <td>{this.props.boat.id}</td>
+        <td>{this.props.boat.name}</td>
+        <td>{this.props.boat.description}</td>
+      </tr>
     )
   }
 }

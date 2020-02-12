@@ -3,19 +3,37 @@ import './App.css';
 
 import Boat from './Boat'
 
-const App = () => {
-  let boats = [
-    { name: 'B1', description: 'B1d' },
-    { name: 'B2', description: 'B2d' }
-  ]
+class App extends React.Component<any> {
+  state = { boats: [] }
 
-  let boatComps = boats.map((boat: any) => <Boat boat={boat} />)
+  componentDidMount() {
+    fetch("http://localhost:3004/boats")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            boats: result
+          })
+        },
+        (error) => {
+          console.error(error)
+        }
+      )
+  }
+  render() {
+    let boatComps = this.state.boats.map((boat: any) => <Boat boat={boat} />)
 
-  return (
-    <div className="App">
-      {boatComps}
-    </div>
-  );
+    return (
+      <table className="App" >
+        <thead>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Description</th>
+        </thead>
+        {boatComps}
+      </table>
+    )
+  }
 }
 
 export default App;
