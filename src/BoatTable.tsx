@@ -2,6 +2,7 @@ import React from 'react';
 import BoatRow from './BoatRow'
 
 class BoatTable extends React.Component<any> {
+  state = { boats: [] }
   componentDidMount() {
     fetch("http://localhost:3004/boats")
       .then(res => res.json())
@@ -16,7 +17,6 @@ class BoatTable extends React.Component<any> {
         }
       )
   }
-  state = { boats: [] }
   render() {
     let boatComps = this.state.boats.map((boat: any) => <BoatRow boat={boat} />)
     return (
