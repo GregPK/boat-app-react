@@ -1,6 +1,8 @@
 import React from 'react';
 
-class Boat extends React.Component<any> {
+// import Link from "react-router-dom";
+
+class BoatRow extends React.Component<any> {
   render() {
     return (
       <tr className="App" >
@@ -12,4 +14,4 @@ class Boat extends React.Component<any> {
   }
 }
 
-export default Boat;
+export default BoatRow;
