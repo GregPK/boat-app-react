@@ -20,7 +20,7 @@ class BoatTable extends React.Component<any> {
   render() {
     let boatComps = this.state.boats.map((boat: any) => <BoatRow key={boat.id} boat={boat} />)
     return (
-      <table className="App" >
+      <table className="boat-table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
           <tr>
             <td>Id</td>
