@@ -7,7 +7,7 @@ class JWTAuth {
     return Object.assign(fetchParams, { headers: headers })
   }
   isLoggedIn = () => {
-    return false
+    return localStorage.getItem("jwt") != null
   }
 }
 

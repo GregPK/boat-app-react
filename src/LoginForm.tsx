@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Auth from './Auth'
+import { navigate } from 'hookrouter'
 
 class LoginForm extends React.Component<any> {
   state = { email: '', password: '' }
@@ -23,6 +24,7 @@ class LoginForm extends React.Component<any> {
       .then(res => res.json())
       .then((result: any) => {
         Auth().setToken(result.jwt)
+        navigate('/boats')
       })
   }
 

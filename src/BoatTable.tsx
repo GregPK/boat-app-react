@@ -7,7 +7,6 @@ class BoatTable extends React.Component<any> {
   state = { boats: [] }
   componentDidMount() {
     const params = Auth().addHeader({})
-    console.log(params)
     fetch("http://localhost:3004/boats", params)
       .then(res => res.json())
       .then(

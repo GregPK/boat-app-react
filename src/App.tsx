@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import BoatTable from './BoatTable';
 import BoatView from './BoatView';
 import BoatEdit from './BoatEdit';
 import LoginForm from './LoginForm';
 import { useRoutes, navigate } from 'hookrouter'
+import Auth from './Auth'
 
 const routes = {
   '/boats/:boatId/edit': (params: any) => <BoatEdit boatId={params.boatId} />,
   '/boats/:boatId': (params: any) => <BoatView boatId={params.boatId} />,
   '/boats': () => <BoatTable />,
-  '/': () => <LoginForm />,
+  '/login': () => <LoginForm />,
 }
 
 const App = () => {
-  const [loggedIn] = useState(false);
-
-  // if (loggedIn === false) {
-  //   navigate("/")
-  // }
+  if (Auth().isLoggedIn() === false && window.location.pathname !== '/') {
+    navigate("/login", true)
+  }
+  if (Auth().isLoggedIn() === true && window.location.pathname === '/') {
+    navigate("/boats", true)
+  }
 
   let routeResult = useRoutes(routes)
   return (

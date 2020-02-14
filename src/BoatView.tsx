@@ -1,9 +1,11 @@
 import React from 'react';
+import Auth from './Auth'
 
 class BoatView extends React.Component<any> {
   state = { boat: { id: "", name: "", description: "", size: 0, color: null } }
   componentDidMount() {
-    fetch("http://localhost:3004/boats/" + this.props.boatId)
+    const params = Auth().addHeader({})
+    fetch("http://localhost:3004/boats/" + this.props.boatId, params)
       .then(res => res.json())
       .then(
         (result) => {

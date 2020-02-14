@@ -1,10 +1,12 @@
 import React from 'react';
 import { navigate } from 'hookrouter';
+import Auth from './Auth'
 
 class BoatEdit extends React.Component<any> {
   state = { boat: { id: "", name: "", description: "", size: 0, color: "" } }
   componentDidMount() {
-    fetch("http://localhost:3004/boats/" + this.props.boatId)
+    const params = Auth().addHeader({})
+    fetch("http://localhost:3004/boats/" + this.props.boatId, params)
       .then(res => res.json())
       .then(
         (result) => {
@@ -33,7 +35,8 @@ class BoatEdit extends React.Component<any> {
     event.preventDefault();
     const data = new FormData(event.target)
 
-    fetch("http://localhost:3004/boats/" + this.props.boatId, { method: 'PUT', body: data })
+    const params = Auth().addHeader({ method: 'PUT', body: data })
+    fetch("http://localhost:3004/boats/" + this.props.boatId, params)
       .then(
         (result) => {
           navigate("/boats/" + this.props.boatId)
