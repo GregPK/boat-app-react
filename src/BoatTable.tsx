@@ -1,10 +1,14 @@
 import React from 'react';
 import BoatRow from './BoatRow'
 
+import Auth from './Auth'
+
 class BoatTable extends React.Component<any> {
   state = { boats: [] }
   componentDidMount() {
-    fetch("http://localhost:3004/boats")
+    const params = Auth().addHeader({})
+    console.log(params)
+    fetch("http://localhost:3004/boats", params)
       .then(res => res.json())
       .then(
         (result) => {
