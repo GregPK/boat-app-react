@@ -19,7 +19,7 @@ class BoatView extends React.Component<any> {
 
   render() {
     return (
-      <div className="card">
+      <div className="card boat-card">
         <div className="card-content">
           <div className="media">
             <div className="media-left">
@@ -29,9 +29,9 @@ class BoatView extends React.Component<any> {
             </div>
             <div className="media-content">
               <p className="title is-4">{this.state.boat.name}</p>
-              <p className="subtitle is-6">
-                {this.state.boat.size && <span>Size: {this.state.boat.size}</span>}
-                {this.state.boat.color && <span>, &nbsp;Color: <i className="fas fa-ship" style={{ color: this.state.boat.color || "transparent" }}></i></span>}
+              <p className="subtitle is-6 attributes">
+                {this.state.boat.size && <span className="attribute"><span className="tag">Size:</span><span className="tag is-success">{this.state.boat.size}</span></span>}
+                {this.state.boat.color && <span className="attribute"><span className="tag">Color:</span><span className="tag" style={{ backgroundColor: this.state.boat.color || "transparent" }}><i className="fas fa-ship" ></i>&nbsp;{this.state.boat.color}</span></span>}
               </p>
             </div>
           </div>
