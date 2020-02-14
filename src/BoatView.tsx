@@ -28,7 +28,10 @@ class BoatView extends React.Component<any> {
               </figure>
             </div>
             <div className="media-content">
-              <p className="title is-4">{this.state.boat.name}</p>
+              <p className="title is-4">
+                {this.state.boat.name}
+                &nbsp;<a href={"/boats/" + this.state.boat.id + "/edit"}><i className="fas fa-edit"></i></a>
+              </p>
               <p className="subtitle is-6 attributes">
                 {this.state.boat.size && <span className="attribute"><span className="tag">Size:</span><span className="tag is-success">{this.state.boat.size}</span></span>}
                 {this.state.boat.color && <span className="attribute"><span className="tag">Color:</span><span className="tag" style={{ backgroundColor: this.state.boat.color || "transparent" }}><i className="fas fa-ship" ></i>&nbsp;{this.state.boat.color}</span></span>}
@@ -37,6 +40,9 @@ class BoatView extends React.Component<any> {
           </div>
           <div className="content">
             {this.state.boat.description} <br />
+          </div>
+          <div className="control">
+            <a href="/boats" className="button is-link is-light">Back to list</a>
           </div>
         </div>
       </div >
