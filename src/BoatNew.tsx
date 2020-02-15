@@ -3,20 +3,8 @@ import { navigate } from 'hookrouter';
 import Auth from './Auth'
 import handleResponse from './ResponseHandler'
 
-class BoatEdit extends React.Component<any> {
-  state = { boat: { id: "", name: "", description: "", size: 0, color: "" } }
-  componentDidMount() {
-    const params = Auth().addHeader({})
-    fetch("http://localhost:3004/boats/" + this.props.boatId, params)
-      .then(res => res.json())
-      .then((result) => {
-        handleResponse().validate(result, () =>
-          this.setState({
-            boat: result
-          })
-        )
-      })
-  }
+class BoatNew extends React.Component<any> {
+  state = { boat: { id: "", name: "", description: "", size: 10, color: "rgba(50,128,128,0.5)" } }
 
   handleChange = (event: any) => {
     const targetName = event.target.name
@@ -33,12 +21,12 @@ class BoatEdit extends React.Component<any> {
     event.preventDefault();
     const data = new FormData(event.target)
 
-    const params = Auth().addHeader({ method: 'PUT', body: data })
-    fetch("http://localhost:3004/boats/" + this.props.boatId, params)
+    const params = Auth().addHeader({ method: 'POST', body: data })
+    fetch("http://localhost:3004/boats/", params)
       .then(res => res.json())
       .then((result) => {
         handleResponse().validate(result, () =>
-          navigate("/boats/" + this.props.boatId)
+          navigate("/boats/" + result.id)
         )
       })
   }
@@ -49,20 +37,20 @@ class BoatEdit extends React.Component<any> {
         <section className="hero">
           <div className="hero-body">
             <div className="container">
-              <h1 className="title">Editing boat {this.state.boat.name}</h1>
+              <h1 className="title">Creating a new boat</h1>
             </div>
           </div>
 
         </section>
         <div className="field">
-          <label className="label">Name</label>
+          <label className="label">Name*</label>
           <div className="control">
             <input className="input" type="text" name="name" placeholder="Boaty McBoatface" onChange={this.handleChange} value={this.state.boat.name} />
           </div>
         </div>
 
         <div className="field">
-          <label className="label">Description</label>
+          <label className="label">Description*</label>
           <div className="control">
             <textarea className="input" name="description" placeholder="Description" onChange={this.handleChange} value={this.state.boat.description} />
           </div>
@@ -98,4 +86,4 @@ class BoatEdit extends React.Component<any> {
   }
 }
 
-export default BoatEdit;
+export default BoatNew;

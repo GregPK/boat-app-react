@@ -2,6 +2,7 @@ import React from 'react';
 import BoatRow from './BoatRow'
 
 import Auth from './Auth'
+import handleResponse from './ResponseHandler'
 
 class BoatTable extends React.Component<any> {
   state = { boats: [] }
@@ -9,48 +10,47 @@ class BoatTable extends React.Component<any> {
     const params = Auth().addHeader({})
     fetch("http://localhost:3004/boats", params)
       .then(res => res.json())
-      .then(
-        (result) => {
+      .then((result) => {
+        handleResponse().validate(result, () =>
           this.setState({
             boats: result
           })
-        },
-        (error) => {
-          console.error(error)
-        }
-      )
+        )
+      })
   }
 
   onDeleteBoat = (boatId: string) => {
-    fetch("http://localhost:3004/boats/" + boatId, { method: 'DELETE' })
-      .then(
-        (result) => {
+    const params = Auth().addHeader({ method: 'DELETE' })
+    fetch("http://localhost:3004/boats/" + boatId, params)
+      .then(res => res.json())
+      .then((result) => {
+        handleResponse().validate(result, () =>
           this.setState({
             boats: this.state.boats.filter((boat: any) => boat.id !== boatId)
           })
-        },
-        (error) => {
-          console.error(error)
-        }
-      )
+        )
+      })
   }
 
   render() {
     let boatComps = this.state.boats.map((boat: any) => <BoatRow key={boat.id} boat={boat} onDelete={this.onDeleteBoat} />)
     return (
-      <table className="boat-table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <td>Id</td>
-            <td>Action</td>
-            <td>Name</td>
-            <td>Description</td>
-          </tr>
-        </thead>
-        <tbody>
-          {boatComps}
-        </tbody>
-      </table>
+      <section>
+        <a className="button is-link" href="/boats/new"><i className="fas fa-plus-square"></i>&nbsp;Add new boat</a>
+        <table className="boat-table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <td>Id</td>
+              <td>Action</td>
+              <td>Name</td>
+              <td>Description</td>
+            </tr>
+          </thead>
+          <tbody>
+            {boatComps}
+          </tbody>
+        </table>
+      </section>
     )
   }
 }

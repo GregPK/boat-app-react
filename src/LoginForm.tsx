@@ -4,7 +4,7 @@ import Auth from './Auth'
 import { navigate } from 'hookrouter'
 
 class LoginForm extends React.Component<any> {
-  state = { email: '', password: '' }
+  state = { email: '', password: '', problem: false }
 
   handleChange = (event: any) => {
     const change = { [event.target.name]: event.target.value }
@@ -13,7 +13,7 @@ class LoginForm extends React.Component<any> {
 
   login = (event: any) => {
     event.preventDefault()
-    const request = { "auth": this.state }
+    const request = { "auth": { email: this.state.email, password: this.state.password } }
     fetch("http://localhost:3004/user_token", {
       method: "POST",
       body: JSON.stringify(request),
@@ -23,14 +23,22 @@ class LoginForm extends React.Component<any> {
     })
       .then(res => res.json())
       .then((result: any) => {
-        Auth().setToken(result.jwt)
-        navigate('/boats')
+        if (result.jwt) {
+          Auth().setToken(result.jwt)
+          navigate('/boats')
+        }
+        else {
+          this.setState((prevState) => Object.assign(prevState, { problem: true }))
+        }
       })
   }
+
 
   render() {
     return (
       <form onSubmit={this.login}>
+
+        {this.state.problem && <div className="notification is-danger">There was a problem with the login. Please check email and password and try again</div>}
         <div className="field">
           <p className="control has-icons-left has-icons-right">
             <input className="input" name="email" type="email" placeholder="Email" onChange={this.handleChange} value={this.state.email} />

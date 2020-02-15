@@ -35,7 +35,7 @@ class BoatView extends React.Component<any> {
                 &nbsp;<a href={"/boats/" + this.state.boat.id + "/edit"}><i className="fas fa-edit"></i></a>
               </p>
               <p className="subtitle is-6 attributes">
-                {this.state.boat.size && <span className="attribute"><span className="tag">Size:</span><span className="tag is-success">{this.state.boat.size}</span></span>}
+                {this.state.boat.size !== 0 && <span className="attribute"><span className="tag">Size:</span><span className="tag is-success">{this.state.boat.size}</span></span>}
                 {this.state.boat.color && <span className="attribute"><span className="tag">Color:</span><span className="tag" style={{ backgroundColor: this.state.boat.color || "transparent" }}><i className="fas fa-ship" ></i>&nbsp;{this.state.boat.color}</span></span>}
               </p>
             </div>
