@@ -17,7 +17,8 @@ const routes = {
 }
 
 const App = () => {
-  if (Auth().isLoggedIn() === false && window.location.pathname !== '/') {
+  console.log(Auth().isLoggedIn(), window.location.pathname)
+  if (Auth().isLoggedIn() === false && window.location.pathname !== '/login') {
     navigate("/login", true)
   }
   if (Auth().isLoggedIn() === true && window.location.pathname === '/') {
